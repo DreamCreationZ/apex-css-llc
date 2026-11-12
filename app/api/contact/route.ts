@@ -69,7 +69,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Invalid request body." }, { status: 400 });
   }
 
+  const deliveryDisabled = process.env.NODE_ENV === "production" && process.env.CONTACT_FORM_ENABLED !== "true";
   if (stringValue(body.website, 200)) {
+    if (deliveryDisabled) {
+      return NextResponse.json({ message: "Online delivery is not configured yet. Please email us directly." }, { status: 503 });
+    }
     return NextResponse.json({ message: "Your inquiry has been received." }, { status: 202 });
   }
 
@@ -86,6 +90,9 @@ export async function POST(request: NextRequest) {
   }
   if (!startedAt || Date.now() - startedAt < 1500 || Date.now() - startedAt > 24 * 60 * 60 * 1000) {
     return NextResponse.json({ message: "Please refresh the form and try again." }, { status: 400 });
+  }
+  if (deliveryDisabled) {
+    return NextResponse.json({ message: "Online delivery is not configured yet. Please email us directly." }, { status: 503 });
   }
   if (isRateLimited(requestAddress(request))) {
     return NextResponse.json({ message: "Too many inquiries were submitted. Please try again later." }, { status: 429 });

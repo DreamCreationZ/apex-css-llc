@@ -62,7 +62,7 @@ export default function Home() {
               Veteran-Led Excellence in <span className="text-gold-300">Federal Contracting</span>
             </h1>
             <p className="mt-8 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              APEX CSS LLC is a Service-Disabled Veteran-Owned Small Business providing mission-focused technology,
+              APEX CSS LLC is a veteran-led small business providing mission-focused technology,
               cybersecurity, professional staffing, and facility support solutions to government and commercial clients.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">

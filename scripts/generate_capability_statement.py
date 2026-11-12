@@ -187,10 +187,10 @@ def build() -> None:
     y2 = section_title(c, "Contact Status", right_x, y2, col_width)
     c.setFillColor(NAVY)
     c.setFont("Helvetica-Bold", 8.5)
-    c.drawString(right_x, y2, "contracts@apexcssllc.com")
+    c.drawString(right_x, y2, "apexcssllc@gmail.com")
     c.setFillColor(AMBER)
     c.setFont("Helvetica", 7)
-    c.drawString(right_x, y2 - 13, "Mailbox publication pending MX and delivery verification")
+    c.drawString(right_x, y2 - 13, "Confirmed company contact - delivery not independently tested")
 
     panel_x = margin
     panel_y = 82

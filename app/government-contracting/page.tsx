@@ -39,7 +39,7 @@ export default function GovernmentContractingPage() {
             <div className="max-w-3xl">
               <p className="section-kicker text-left">Business classifications & identifiers</p>
               <h2 className="section-title text-left">Credential status, without assumptions.</h2>
-              <p className="mt-6 leading-7 text-slate-600">The company has supplied a veteran-owned and service-disabled veteran-owned identity. Formal certification and registration records have not yet been provided for independent verification.</p>
+              <p className="mt-6 leading-7 text-slate-600">Formal SDVOSB, VOSB, SAM.gov, and related registration records have not yet been provided for independent verification. No pending classification or identifier should be treated as active.</p>
             </div>
             <span className="inline-flex w-fit items-center border border-amber-300 bg-amber-50 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-amber-800">Verification in progress</span>
           </div>
@@ -125,7 +125,7 @@ export default function GovernmentContractingPage() {
             <p className="mt-4 max-w-3xl leading-7 text-slate-600">This draft intentionally marks SAM, SBA VetCert, UEI, CAGE, NAICS, contact email, and past-performance fields as pending. Replace it after documentary verification.</p>
           </div>
           <a className="button-gold px-7 py-4" href={siteConfig.capabilityStatement} download>
-            Download Capability Statement <ArrowIcon className="h-4 w-4" />
+            Download Draft Capability Statement <ArrowIcon className="h-4 w-4" />
           </a>
         </div>
       </section>

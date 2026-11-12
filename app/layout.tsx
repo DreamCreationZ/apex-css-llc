@@ -12,7 +12,8 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  keywords: ["federal contracting", "SDVOSB", "cybersecurity", "IT modernization", "professional staffing", "facility management"],
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
+  keywords: ["federal contracting", "veteran-led small business", "cybersecurity", "IT modernization", "professional staffing", "facility management"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -25,9 +26,19 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const organizationJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.legalName,
+    url: siteConfig.url,
+    email: siteConfig.contactEmail,
+    description: siteConfig.description,
+  };
+
   return (
     <html lang="en">
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <Header />
         {children}

@@ -4,8 +4,9 @@ export const siteConfig = {
   description:
     "Veteran-led, mission-focused technology, cybersecurity, staffing, and facility support solutions for government and commercial clients.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://apexcssllc.com",
-  contactEmail: "contracts@apexcssllc.com",
-  contactEmailVerified: false,
+  contactEmail: "apexcssllc@gmail.com",
+  contactEmailConfirmed: true,
+  contactFormEnabled: process.env.NEXT_PUBLIC_CONTACT_FORM_ENABLED === "true",
   capabilityStatement: "/downloads/APEX-CSS-LLC-Capability-Statement-Draft.pdf",
 } as const;
 

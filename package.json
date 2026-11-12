@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sesv2": "^3.922.0",
-    "next": "15.5.12",
+    "next": "15.5.29",
     "react": "19.1.1",
     "react-dom": "19.1.1"
   },
@@ -27,7 +27,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "eslint": "^9.35.0",
-    "eslint-config-next": "15.5.12",
+    "eslint-config-next": "15.5.29",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.2"
   }

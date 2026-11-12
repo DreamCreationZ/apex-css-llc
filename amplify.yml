@@ -7,7 +7,7 @@ frontend:
         - npm ci
     build:
       commands:
-        - env | grep -e NEXT_PUBLIC_SITE_URL -e SES_REGION -e CONTACT_FORM_RECIPIENT -e CONTACT_FORM_SENDER >> .env.production
+        - env | grep -e NEXT_PUBLIC_SITE_URL -e NEXT_PUBLIC_CONTACT_FORM_ENABLED -e CONTACT_FORM_ENABLED -e SES_REGION -e CONTACT_FORM_RECIPIENT -e CONTACT_FORM_SENDER >> .env.production
         - npm run typecheck
         - npm run lint
         - npm run build

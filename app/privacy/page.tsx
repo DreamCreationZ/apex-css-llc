@@ -4,6 +4,7 @@ import { PageHero } from "@/components/PageHero";
 export const metadata: Metadata = {
   title: "Privacy",
   description: "Privacy information for the APEX CSS LLC website inquiry forms.",
+  alternates: { canonical: "/privacy" },
   robots: { index: false, follow: true },
 };
 

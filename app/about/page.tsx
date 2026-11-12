@@ -36,7 +36,7 @@ export default function AboutPage() {
           <div className="relative min-h-[460px] overflow-hidden bg-navy-950 p-8 text-white sm:p-12">
             <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-gold-400/20" />
             <div className="absolute right-10 top-10 h-44 w-44 rounded-full border border-gold-400/30" />
-            <p className="relative text-xs font-bold uppercase tracking-[.24em] text-gold-300">Veteran-owned identity</p>
+            <p className="relative text-xs font-bold uppercase tracking-[.24em] text-gold-300">Veteran-led identity</p>
             <blockquote className="relative mt-20 font-display text-3xl leading-tight sm:text-4xl">Leadership grounded in service, readiness, and accountability.</blockquote>
             <p className="relative mt-8 text-sm leading-7 text-slate-300">Formal SDVOSB and VOSB certification documentation is pending verification and will be published only after confirmation.</p>
             <div className="absolute bottom-0 left-0 h-1.5 w-28 bg-gold-400" />

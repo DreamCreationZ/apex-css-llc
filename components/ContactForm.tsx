@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { siteConfig } from "@/lib/site";
 
 const inquiryTypes = [
   "Federal opportunity",
@@ -20,6 +21,10 @@ export function ContactForm({ defaultInquiry = "Federal opportunity", heading = 
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!siteConfig.contactFormEnabled) {
+      setStatus({ state: "error", message: "Online form delivery is temporarily unavailable. Please email us directly." });
+      return;
+    }
     const form = event.currentTarget;
     const formData = new FormData(form);
     setStatus({ state: "sending", message: "Submitting your inquiry…" });
@@ -54,6 +59,11 @@ export function ContactForm({ defaultInquiry = "Federal opportunity", heading = 
     <form className="bg-white p-6 shadow-[0_20px_70px_rgba(6,27,61,.12)] sm:p-10" onSubmit={handleSubmit} noValidate>
       <h2 className="font-display text-3xl font-semibold text-navy-950">{heading}</h2>
       <p className="mt-3 text-sm leading-6 text-slate-600">Fields marked with an asterisk are required.</p>
+      {!siteConfig.contactFormEnabled && (
+        <p className="mt-5 border-l-4 border-amber-500 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
+          Online submission is temporarily unavailable. Email <a className="font-bold underline underline-offset-2" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a> instead.
+        </p>
+      )}
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
         <label className="text-sm font-bold text-navy-950">Name *
@@ -81,7 +91,7 @@ export function ContactForm({ defaultInquiry = "Federal opportunity", heading = 
       </div>
 
       <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <button className="button-gold min-w-44 px-7 py-4 disabled:cursor-not-allowed disabled:opacity-60" type="submit" disabled={status.state === "sending"}>
+        <button className="button-gold min-w-44 px-7 py-4 disabled:cursor-not-allowed disabled:opacity-60" type="submit" disabled={!siteConfig.contactFormEnabled || status.state === "sending"}>
           {status.state === "sending" ? "Submitting…" : "Submit inquiry"}
         </button>
         <p className="max-w-md text-xs leading-5 text-slate-500">Protected by server-side validation, timing checks, a honeypot, origin checks, and request throttling.</p>
@@ -92,6 +102,7 @@ export function ContactForm({ defaultInquiry = "Federal opportunity", heading = 
           {status.message}
         </div>
       )}
+      <p className="mt-5 text-xs leading-5 text-slate-500">Direct email: <a className="font-bold text-navy-950 underline underline-offset-2" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a></p>
     </form>
   );
 }
