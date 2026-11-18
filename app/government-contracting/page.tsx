@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, PartnerIcon, ShieldIcon, TargetIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
-import { credentials, naicsCandidates, siteConfig } from "@/lib/site";
+import { credentials, siteConfig, verifiedNaicsCodes } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Government Contracting",
@@ -22,7 +22,7 @@ const competencies = [
 const differentiators = [
   { title: "Integrated capability model", copy: "Technology, staffing, and facility support coordinated through one responsive small-business partner." },
   { title: "Veteran-led operating discipline", copy: "A service-minded approach centered on preparation, accountability, and mission alignment." },
-  { title: "Transparent credential posture", copy: "Registrations and classifications are published only after verification, reducing proposal and teaming risk." },
+  { title: "Verified SBA classifications", copy: "Active SDVOSB and VOSB classifications are matched to the company’s public SBA profile and identifiers." },
   { title: "Flexible teaming orientation", copy: "Structured to complement prime contractors with focused capabilities and responsive communication." },
 ];
 
@@ -30,7 +30,7 @@ export default function GovernmentContractingPage() {
   return (
     <main id="main-content">
       <PageHero eyebrow="Government contracting" title={<>Ready to support the <span className="text-gold-300">federal mission.</span></>}>
-        APEX CSS LLC is building a disciplined federal contracting platform around technology, cybersecurity, workforce, and facility-support requirements.
+        APEX CSS LLC is an SBA-certified SDVOSB and VOSB supporting technology, cybersecurity, workforce, and facility-service requirements.
       </PageHero>
 
       <section className="bg-slate-50 py-24 sm:py-28">
@@ -38,18 +38,20 @@ export default function GovernmentContractingPage() {
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl">
               <p className="section-kicker text-left">Business classifications & identifiers</p>
-              <h2 className="section-title text-left">Credential status, without assumptions.</h2>
-              <p className="mt-6 leading-7 text-slate-600">Formal SDVOSB, VOSB, SAM.gov, and related registration records have not yet been provided for independent verification. No pending classification or identifier should be treated as active.</p>
+              <h2 className="section-title text-left">A verified SBA business profile.</h2>
+              <p className="mt-6 leading-7 text-slate-600">
+                The official SBA Small Business Search record matches APEX CSS LLC, UEI VP2LS7WJGFP3, and CAGE 261U4, and lists active SDVOSB and VOSB certifications beginning October 21, 2026. Active SAM.gov registration status should still be confirmed directly before reliance.
+              </p>
             </div>
-            <span className="inline-flex w-fit items-center border border-amber-300 bg-amber-50 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-amber-800">Verification in progress</span>
+            <a className="inline-flex w-fit items-center border border-emerald-300 bg-emerald-50 px-4 py-2 text-xs font-bold uppercase tracking-[.14em] text-emerald-800 transition hover:bg-emerald-100" href={siteConfig.sbaProfileUrl} target="_blank" rel="noreferrer">View official SBA profile</a>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {credentials.map((credential) => (
               <article key={credential.label} className="min-h-56 border border-slate-200 bg-white p-6 shadow-[0_14px_45px_rgba(6,27,61,.05)]">
                 <ShieldIcon className="h-7 w-7 text-gold-500" />
                 <h3 className="mt-7 font-display text-xl font-semibold">{credential.label}</h3>
-                <p className="mt-3 text-sm font-bold text-amber-700">{credential.value}</p>
+                <p className={`mt-3 text-sm font-bold ${credential.verified ? "text-emerald-700" : "text-amber-700"}`}>{credential.value}</p>
                 <p className="mt-3 text-xs leading-5 text-slate-500">{credential.note}</p>
               </article>
             ))}
@@ -81,15 +83,15 @@ export default function GovernmentContractingPage() {
           <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
             <div>
               <p className="section-kicker text-left text-gold-300">Relevant NAICS alignment</p>
-              <h2 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">Codes aligned to the planned capability portfolio.</h2>
-              <p className="mt-6 leading-7 text-slate-300">These are candidate NAICS codes, not a representation of the company’s current SAM.gov record. Confirm selections before production publication.</p>
+              <h2 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">Confirmed NAICS information.</h2>
+              <p className="mt-6 leading-7 text-slate-300">NAICS 541512 appears in the official SBA public profile. Additional company-supplied NAICS fragments remain unpublished pending verification of complete six-digit codes.</p>
             </div>
-            <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
-              {naicsCandidates.map(({ code, label }) => (
+            <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10">
+              {verifiedNaicsCodes.map(({ code, label }) => (
                 <article key={code} className="bg-navy-950 p-7">
                   <p className="font-display text-3xl text-gold-300">{code}</p>
                   <p className="mt-3 text-sm leading-6 text-slate-300">{label}</p>
-                  <p className="mt-4 text-[.65rem] font-bold uppercase tracking-[.16em] text-amber-300">Pending SAM confirmation</p>
+                  <p className="mt-4 text-[.65rem] font-bold uppercase tracking-[.16em] text-emerald-300">Matched in official SBA record</p>
                 </article>
               ))}
             </div>
@@ -122,7 +124,7 @@ export default function GovernmentContractingPage() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[.22em] text-gold-600">Capability statement</p>
             <h2 className="mt-4 font-display text-4xl font-semibold">Download the current draft profile.</h2>
-            <p className="mt-4 max-w-3xl leading-7 text-slate-600">This draft intentionally marks SAM, SBA VetCert, UEI, CAGE, NAICS, contact email, and past-performance fields as pending. Replace it after documentary verification.</p>
+            <p className="mt-4 max-w-3xl leading-7 text-slate-600">This draft includes the confirmed SBA certifications, approval date, UEI, CAGE, NAICS 541512, phone, and email. SAM.gov status, additional NAICS information, and any past-performance content remain unpublished pending verification.</p>
           </div>
           <a className="button-gold px-7 py-4" href={siteConfig.capabilityStatement} download>
             Download Draft Capability Statement <ArrowIcon className="h-4 w-4" />

@@ -20,7 +20,7 @@ export default function AboutPage() {
   return (
     <main id="main-content">
       <PageHero eyebrow="About APEX CSS LLC" title={<>Purpose built for <span className="text-gold-300">mission success.</span></>}>
-        APEX CSS LLC is a veteran-led small business organized to deliver dependable technology, workforce, and facility support solutions for public- and private-sector clients.
+        APEX CSS LLC is an SBA-certified SDVOSB and VOSB organized to deliver dependable technology, workforce, and facility support solutions for public- and private-sector clients.
       </PageHero>
 
       <section className="bg-white py-24 sm:py-32">
@@ -38,7 +38,7 @@ export default function AboutPage() {
             <div className="absolute right-10 top-10 h-44 w-44 rounded-full border border-gold-400/30" />
             <p className="relative text-xs font-bold uppercase tracking-[.24em] text-gold-300">Veteran-led identity</p>
             <blockquote className="relative mt-20 font-display text-3xl leading-tight sm:text-4xl">Leadership grounded in service, readiness, and accountability.</blockquote>
-            <p className="relative mt-8 text-sm leading-7 text-slate-300">Formal SDVOSB and VOSB certification documentation is pending verification and will be published only after confirmation.</p>
+            <p className="relative mt-8 text-sm leading-7 text-slate-300">SBA certified as both an SDVOSB and VOSB, with an approval date of October 21, 2026.</p>
             <div className="absolute bottom-0 left-0 h-1.5 w-28 bg-gold-400" />
           </div>
         </div>

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
-  keywords: ["federal contracting", "veteran-led small business", "cybersecurity", "IT modernization", "professional staffing", "facility management"],
+  keywords: ["federal contracting", "SDVOSB", "VOSB", "veteran-owned small business", "cybersecurity", "IT modernization", "professional staffing", "facility management"],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -32,6 +32,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     name: siteConfig.legalName,
     url: siteConfig.url,
     email: siteConfig.contactEmail,
+    telephone: siteConfig.businessPhone,
     description: siteConfig.description,
   };
 

@@ -13,10 +13,10 @@ import {
 } from "@/components/Icons";
 
 const credentials = [
-  { label: "SAM.gov Registration", value: "Verification pending" },
-  { label: "SDVOSB Certification", value: "Verification pending" },
-  { label: "UEI", value: "Not yet provided" },
-  { label: "CAGE Code", value: "Not yet provided" },
+  { label: "SBA Certifications", value: "SDVOSB & VOSB" },
+  { label: "SBA Approval", value: "October 21, 2026" },
+  { label: "UEI", value: "VP2LS7WJGFP3" },
+  { label: "CAGE Code", value: "261U4" },
 ];
 
 const services = [
@@ -62,7 +62,7 @@ export default function Home() {
               Veteran-Led Excellence in <span className="text-gold-300">Federal Contracting</span>
             </h1>
             <p className="mt-8 max-w-3xl text-base leading-8 text-slate-300 sm:text-lg">
-              APEX CSS LLC is a veteran-led small business providing mission-focused technology,
+              APEX CSS LLC is an SBA-certified SDVOSB and VOSB providing mission-focused technology,
               cybersecurity, professional staffing, and facility support solutions to government and commercial clients.
             </p>
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
@@ -99,7 +99,7 @@ export default function Home() {
             <span className="section-mark"><CheckIcon className="h-6 w-6" /></span>
             <p className="section-kicker">Business credentials</p>
             <h2 className="section-title">Capability Statement Snapshot</h2>
-            <p className="section-lede">Credential details are published only after verification against official documentation.</p>
+            <p className="section-lede">Confirmed federal profile details for procurement and teaming conversations.</p>
           </div>
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -113,7 +113,7 @@ export default function Home() {
             ))}
           </div>
           <p className="mx-auto mt-7 max-w-3xl text-center text-xs leading-5 text-slate-500">
-            Certification, registration, and identifier status shown here should not be treated as active until verified.
+            SBA certification status, UEI, and CAGE were independently matched in the official SBA public record. Confirm active SAM.gov registration before each solicitation.
           </p>
         </div>
       </section>
@@ -202,7 +202,7 @@ export default function Home() {
             <article className="contract-card">
               <ShieldIcon className="h-8 w-8 text-gold-500" />
               <h3 className="mt-7 font-display text-2xl font-semibold">Business Classification</h3>
-              <p className="mt-4 leading-7 text-slate-600">Veteran-led small business. Formal SDVOSB certification and related credentials remain pending verification.</p>
+              <p className="mt-4 leading-7 text-slate-600">SBA-certified Service-Disabled Veteran-Owned Small Business and Veteran-Owned Small Business, approved October 21, 2026.</p>
             </article>
             <article className="contract-card">
               <PartnerIcon className="h-8 w-8 text-gold-500" />

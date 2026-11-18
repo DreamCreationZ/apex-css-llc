@@ -30,7 +30,9 @@ export function Footer() {
         <div className="text-sm text-slate-400 lg:text-right">
           <p>© {new Date().getFullYear()} APEX CSS LLC. All rights reserved.</p>
           <a className="mt-3 inline-block text-xs font-semibold text-slate-300 transition hover:text-gold-300" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
-          <p className="mt-2 text-xs">Credential information subject to verification.</p>
+          <span className="mx-2 text-slate-600" aria-hidden="true">|</span>
+          <a className="inline-block text-xs font-semibold text-slate-300 transition hover:text-gold-300" href={`tel:${siteConfig.businessPhoneHref}`}>{siteConfig.businessPhone}</a>
+          <p className="mt-2 text-xs">SBA-certified SDVOSB &amp; VOSB · Approved October 21, 2026</p>
           <p className="mt-2 text-xs">APEX CSS LLC is not affiliated with or endorsed by the U.S. Government.</p>
           <Link className="mt-3 inline-block text-xs transition hover:text-white" href="/privacy">Privacy</Link>
         </div>

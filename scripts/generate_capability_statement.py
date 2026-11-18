@@ -95,7 +95,7 @@ def build() -> None:
     c.setFont("Helvetica-Bold", 8)
     c.drawCentredString(width - 104, height - 77, "PRE-LAUNCH DRAFT")
     c.setFont("Helvetica", 7)
-    c.drawCentredString(width - 104, height - 90, "Credentials pending verification")
+    c.drawCentredString(width - 104, height - 90, "Verified profile details included")
 
     margin = 34
     gutter = 22
@@ -106,7 +106,7 @@ def build() -> None:
 
     y = section_title(c, "Company Overview", left_x, top, col_width)
     overview = (
-        "APEX CSS LLC is a veteran-led small business providing mission-focused IT infrastructure, "
+        "APEX CSS LLC is an SBA-certified SDVOSB and VOSB providing mission-focused IT infrastructure, "
         "cybersecurity, professional staffing, commercial cleaning, window washing, and facility-support solutions."
     )
     y = draw_wrapped(c, overview, left_x, y, col_width, "Helvetica", 8.5, 12)
@@ -144,13 +144,14 @@ def build() -> None:
 
     y2 = section_title(c, "Federal Profile", right_x, top, col_width)
     profile = [
-        ("SDVOSB", "Verification pending"),
-        ("VOSB", "Verification pending"),
-        ("SAM.gov", "Verification pending"),
-        ("UEI", "Not provided"),
-        ("CAGE", "Not provided"),
+        ("SDVOSB", "SBA Certified"),
+        ("VOSB", "SBA Certified"),
+        ("SBA Approval", "October 21, 2026"),
+        ("UEI", "VP2LS7WJGFP3"),
+        ("CAGE", "261U4"),
+        ("SAM.gov", "Confirm current status"),
     ]
-    row_h = 28
+    row_h = 25
     for index, (label, value) in enumerate(profile):
         if index % 2 == 0:
             c.setFillColor(LIGHT)
@@ -158,20 +159,15 @@ def build() -> None:
         c.setFillColor(NAVY)
         c.setFont("Helvetica-Bold", 8)
         c.drawString(right_x + 8, y2 - 1, label)
-        c.setFillColor(AMBER)
+        c.setFillColor(NAVY if label != "SAM.gov" else AMBER)
         c.setFont("Helvetica-Bold", 7.5)
         c.drawRightString(right_x + col_width - 8, y2 - 1, value)
         y2 -= row_h
     y2 -= 8
 
-    y2 = section_title(c, "Candidate NAICS Alignment", right_x, y2, col_width)
+    y2 = section_title(c, "Confirmed NAICS", right_x, y2, col_width)
     naics = [
         ("541512", "Computer Systems Design Services"),
-        ("541513", "Computer Facilities Management Services"),
-        ("541519", "Other Computer Related Services"),
-        ("561210", "Facilities Support Services"),
-        ("561320", "Temporary Help Services"),
-        ("561720", "Janitorial Services"),
     ]
     for code, label in naics:
         c.setFillColor(NAVY)
@@ -181,16 +177,18 @@ def build() -> None:
         y2 -= 19
     c.setFillColor(AMBER)
     c.setFont("Helvetica-Oblique", 6.8)
-    c.drawString(right_x, y2 + 3, "Candidate codes only - confirm against the active SAM.gov record.")
-    y2 -= 15
+    pending_naics = "Additional NAICS information remains unpublished pending complete-code verification."
+    y2 = draw_wrapped(c, pending_naics, right_x, y2 + 3, col_width, "Helvetica-Oblique", 6.8, 9, AMBER)
+    y2 -= 7
 
-    y2 = section_title(c, "Contact Status", right_x, y2, col_width)
+    y2 = section_title(c, "Business Contact", right_x, y2, col_width)
     c.setFillColor(NAVY)
     c.setFont("Helvetica-Bold", 8.5)
     c.drawString(right_x, y2, "apexcssllc@gmail.com")
-    c.setFillColor(AMBER)
-    c.setFont("Helvetica", 7)
-    c.drawString(right_x, y2 - 13, "Confirmed company contact - delivery not independently tested")
+    c.drawString(right_x, y2 - 14, "(410) 575-4377")
+    c.setFillColor(SLATE)
+    c.setFont("Helvetica", 6.8)
+    c.drawString(right_x, y2 - 28, "Online inquiry form remains disabled; use direct email or phone.")
 
     panel_x = margin
     panel_y = 82
@@ -223,14 +221,14 @@ def build() -> None:
     c.setFont("Helvetica-Bold", 7)
     c.drawString(margin, 34, "VERIFICATION NOTICE")
     notice = (
-        "No contract awards, agency relationships, certifications, contract vehicles, or past performance are asserted in this draft. "
-        "Replace all pending fields only after documentary verification."
+        "SBA SDVOSB/VOSB status, approval date, UEI, CAGE, and NAICS 541512 were matched in the official SBA public record. "
+        "SAM.gov status and additional NAICS information require confirmation. No contract awards, agency relationships, contract vehicles, or past performance are asserted."
     )
     draw_wrapped(c, notice, margin, 21, width - 2 * margin, "Helvetica", 6.7, 9, HexColor("#D5DEE9"))
 
     c.setTitle("APEX CSS LLC Capability Statement - Draft")
     c.setAuthor("APEX CSS LLC")
-    c.setSubject("Pre-launch capability statement with credentials pending verification")
+    c.setSubject("Pre-launch capability statement with verified SBA profile details")
     c.showPage()
     c.save()
     print(OUTPUT)

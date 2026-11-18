@@ -86,15 +86,26 @@ test("contact page clearly exposes the verified email fallback", async ({ page }
     "href",
     "mailto:apexcssllc@gmail.com",
   );
+  await expect(page.getByRole("link", { name: "(410) 575-4377" }).first()).toHaveAttribute(
+    "href",
+    "tel:+14105754377",
+  );
 });
 
-test("unverified credentials and pre-launch notices remain qualified", async ({ page }) => {
+test("verified credentials and remaining pre-launch notices are accurate", async ({ page }) => {
   await page.goto("/", { waitUntil: "domcontentloaded" });
-  await expect(page.getByText("Certification, registration, and identifier status shown here should not be treated as active until verified.")).toBeVisible();
-  await expect(page.locator("body")).not.toContainText("APEX CSS LLC is a Service-Disabled Veteran-Owned Small Business");
+  await expect(page.getByText("SDVOSB & VOSB", { exact: true })).toBeVisible();
+  await expect(page.getByText("October 21, 2026", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("VP2LS7WJGFP3", { exact: true })).toBeVisible();
+  await expect(page.getByText("261U4", { exact: true })).toBeVisible();
 
   await page.goto("/government-contracting", { waitUntil: "domcontentloaded" });
-  await expect(page.getByText("No pending classification or identifier should be treated as active.", { exact: false })).toBeVisible();
+  await expect(page.getByText("SBA Certified", { exact: true })).toHaveCount(2);
+  await expect(page.getByText("Status not published", { exact: true })).toBeVisible();
+  await expect(page.getByText("Additional company-supplied NAICS fragments remain unpublished", { exact: false })).toBeVisible();
+  await expect(page.getByText("541512", { exact: true })).toBeVisible();
+  await expect(page.getByText("(410) 575-4377", { exact: true }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "View official SBA profile" })).toHaveAttribute("href", /search\.certifications\.sba\.gov/);
   await expect(page.getByRole("link", { name: "Download Draft Capability Statement" })).toHaveAttribute("href", /Draft\.pdf$/);
 
   await page.goto("/privacy", { waitUntil: "domcontentloaded" });

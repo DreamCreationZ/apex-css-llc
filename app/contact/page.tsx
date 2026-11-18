@@ -23,13 +23,14 @@ export default function ContactPage() {
             <article className="bg-navy-950 p-8 text-white">
               <TargetIcon className="h-8 w-8 text-gold-300" />
               <h2 className="mt-7 font-display text-3xl font-semibold">Business inquiries</h2>
-              <p className="mt-4 leading-7 text-slate-300">For opportunity notices, capability requests, teaming discussions, and service inquiries, use the secure form.</p>
+              <p className="mt-4 leading-7 text-slate-300">For opportunity notices, capability requests, teaming discussions, and service inquiries, contact APEX directly by email or phone.</p>
             </article>
             <article className="border border-slate-200 bg-white p-8">
-              <p className="text-xs font-bold uppercase tracking-[.2em] text-gold-600">Confirmed business email</p>
+              <p className="text-xs font-bold uppercase tracking-[.2em] text-gold-600">Confirmed business contact</p>
               <a className="mt-4 block break-all font-display text-2xl font-semibold text-navy-950 transition hover:text-gold-600" href={`mailto:${siteConfig.contactEmail}`}>{siteConfig.contactEmail}</a>
+              <a className="mt-3 block font-display text-xl font-semibold text-navy-950 transition hover:text-gold-600" href={`tel:${siteConfig.businessPhoneHref}`}>{siteConfig.businessPhone}</a>
               <span className="mt-4 inline-flex border border-emerald-300 bg-emerald-50 px-3 py-2 text-[.65rem] font-bold uppercase tracking-[.14em] text-emerald-800">Confirmed company contact</span>
-              <p className="mt-4 text-sm leading-6 text-slate-600">Use this address for direct business, contracting, capability, and partnership inquiries. Independent delivery testing has not been performed by the website auditor.</p>
+              <p className="mt-4 text-sm leading-6 text-slate-600">Use these details for direct business, contracting, capability, and partnership inquiries. Independent email delivery testing has not been performed by the website auditor.</p>
             </article>
             <article className="flex gap-4 border-l-2 border-gold-400 bg-white p-6">
               <ShieldIcon className="h-6 w-6 shrink-0 text-gold-500" />
