@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { CloudIcon, FacilityIcon, PartnerIcon, PeopleIcon, ShieldIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Teaming & Partnerships",
   description: "Explore federal teaming, technology, cybersecurity, staffing, and facility-services partnership opportunities with APEX CSS LLC.",
-  alternates: { canonical: "/teaming" },
-};
+  path: "/teaming",
+});
 
 const opportunities = [
   { title: "IT & cybersecurity partnerships", copy: "Complementary workshare for infrastructure, cloud, cybersecurity, service delivery, and modernization requirements.", Icon: ShieldIcon },

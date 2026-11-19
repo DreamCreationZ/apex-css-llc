@@ -55,7 +55,7 @@ Cloudflare remains authoritative. When connecting the Amplify custom domain, sel
 1. Verify the final hostname and all Amplify environment variables.
 2. Configure and test Google Workspace MX records in Cloudflare.
 3. Verify the SES identity, production access, and least-privilege SSR Compute role.
-4. Confirm active SAM.gov registration and complete six-digit values for the remaining company-supplied NAICS fragments. SBA SDVOSB/VOSB status, UEI, CAGE, and NAICS 541512 have been matched in the official SBA public profile.
+4. Confirm active SAM.gov registration and expiration directly. SBA SDVOSB/VOSB status, UEI, CAGE, primary NAICS 541511, and additional NAICS 423430, 518210, 541512, 541519, 541618, and 541690 have been matched in the official SBA public profile.
 5. Approve the updated draft capability statement for final publication.
 6. Approve the privacy notice, retention schedule, access controls, and incident-handling process.
 7. Connect the approved GitHub repository and review the first Amplify build before adding production DNS records.

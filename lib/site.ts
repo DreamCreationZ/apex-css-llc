@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export const siteConfig = {
   name: "APEX CSS LLC",
   legalName: "APEX CSS LLC",
@@ -24,5 +26,37 @@ export const credentials = [
 ] as const;
 
 export const verifiedNaicsCodes = [
-  { code: "541512", label: "Computer Systems Design Services" },
+  { code: "541511", label: "Custom Computer Programming Services", primary: true },
+  { code: "423430", label: "Computer and Computer Peripheral Equipment and Software Merchant Wholesalers", primary: false },
+  { code: "518210", label: "Computing Infrastructure Providers, Data Processing, Web Hosting, and Related Services", primary: false },
+  { code: "541512", label: "Computer Systems Design Services", primary: false },
+  { code: "541519", label: "Other Computer Related Services", primary: false },
+  { code: "541618", label: "Other Management Consulting Services", primary: false },
+  { code: "541690", label: "Other Scientific and Technical Consulting Services", primary: false },
 ] as const;
+
+export function createPageMetadata({
+  title,
+  description,
+  path,
+  noIndex = false,
+}: {
+  title: string;
+  description: string;
+  path: `/${string}`;
+  noIndex?: boolean;
+}): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: "website",
+      siteName: siteConfig.name,
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      url: path,
+    },
+    ...(noIndex ? { robots: { index: false, follow: true } } : {}),
+  };
+}

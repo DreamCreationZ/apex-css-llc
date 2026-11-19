@@ -1,4 +1,5 @@
 from pathlib import Path
+from shutil import copyfile
 
 from reportlab.lib.colors import HexColor, white
 from reportlab.lib.pagesizes import letter
@@ -8,6 +9,7 @@ from reportlab.pdfgen import canvas
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output" / "pdf" / "APEX-CSS-LLC-Capability-Statement-Draft.pdf"
+PUBLIC_OUTPUT = ROOT / "public" / "downloads" / "APEX-CSS-LLC-Capability-Statement-Draft.pdf"
 
 NAVY = HexColor("#061B3D")
 NAVY_2 = HexColor("#0A244A")
@@ -95,7 +97,7 @@ def build() -> None:
     c.setFont("Helvetica-Bold", 8)
     c.drawCentredString(width - 104, height - 77, "PRE-LAUNCH DRAFT")
     c.setFont("Helvetica", 7)
-    c.drawCentredString(width - 104, height - 90, "Verified profile details included")
+    c.drawCentredString(width - 104, height - 90, "Prepared for company review")
 
     margin = 34
     gutter = 22
@@ -165,21 +167,23 @@ def build() -> None:
         y2 -= row_h
     y2 -= 8
 
-    y2 = section_title(c, "Confirmed NAICS", right_x, y2, col_width)
+    y2 = section_title(c, "SBA-Listed NAICS", right_x, y2, col_width)
     naics = [
-        ("541512", "Computer Systems Design Services"),
+        ("541511", "Custom computer programming (Primary)"),
+        ("423430", "Computer and software merchant wholesalers"),
+        ("518210", "Computing infrastructure, processing, and hosting"),
+        ("541512", "Computer systems design services"),
+        ("541519", "Other computer related services"),
+        ("541618", "Other management consulting services"),
+        ("541690", "Other scientific and technical consulting"),
     ]
     for code, label in naics:
         c.setFillColor(NAVY)
-        c.setFont("Helvetica-Bold", 8)
+        c.setFont("Helvetica-Bold", 7.2)
         c.drawString(right_x, y2, code)
-        draw_wrapped(c, label, right_x + 44, y2, col_width - 44, "Helvetica", 7.5, 9, SLATE)
-        y2 -= 19
-    c.setFillColor(AMBER)
-    c.setFont("Helvetica-Oblique", 6.8)
-    pending_naics = "Additional NAICS information remains unpublished pending complete-code verification."
-    y2 = draw_wrapped(c, pending_naics, right_x, y2 + 3, col_width, "Helvetica-Oblique", 6.8, 9, AMBER)
-    y2 -= 7
+        draw_wrapped(c, label, right_x + 42, y2, col_width - 42, "Helvetica", 6.6, 8, SLATE)
+        y2 -= 17
+    y2 -= 3
 
     y2 = section_title(c, "Business Contact", right_x, y2, col_width)
     c.setFillColor(NAVY)
@@ -221,17 +225,20 @@ def build() -> None:
     c.setFont("Helvetica-Bold", 7)
     c.drawString(margin, 34, "VERIFICATION NOTICE")
     notice = (
-        "SBA SDVOSB/VOSB status, approval date, UEI, CAGE, and NAICS 541512 were matched in the official SBA public record. "
-        "SAM.gov status and additional NAICS information require confirmation. No contract awards, agency relationships, contract vehicles, or past performance are asserted."
+        "SBA SDVOSB/VOSB status, approval date, UEI, CAGE, primary NAICS 541511, and the listed additional NAICS codes were matched in the official SBA public record. "
+        "Direct SAM.gov status still requires confirmation. This draft is not company-approved, and no contract awards, agency relationships, contract vehicles, or past performance are asserted."
     )
     draw_wrapped(c, notice, margin, 21, width - 2 * margin, "Helvetica", 6.7, 9, HexColor("#D5DEE9"))
 
     c.setTitle("APEX CSS LLC Capability Statement - Draft")
     c.setAuthor("APEX CSS LLC")
-    c.setSubject("Pre-launch capability statement with verified SBA profile details")
+    c.setSubject("Pre-launch company-review draft with verified SBA profile details")
     c.showPage()
     c.save()
+    PUBLIC_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    copyfile(OUTPUT, PUBLIC_OUTPUT)
     print(OUTPUT)
+    print(PUBLIC_OUTPUT)
 
 
 if __name__ == "__main__":

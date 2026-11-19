@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
 import { ShieldIcon, TargetIcon } from "@/components/Icons";
-import { siteConfig } from "@/lib/site";
+import { createPageMetadata, siteConfig } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact Us",
   description: "Contact APEX CSS LLC about federal opportunities, teaming, technology, staffing, and facility-support requirements.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

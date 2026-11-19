@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, PartnerIcon, ShieldIcon, TargetIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
-import { credentials, siteConfig, verifiedNaicsCodes } from "@/lib/site";
+import { createPageMetadata, credentials, siteConfig, verifiedNaicsCodes } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Government Contracting",
   description: "Review APEX CSS LLC's federal contracting focus, credential status, core competencies, differentiators, and capability statement.",
-  alternates: { canonical: "/government-contracting" },
-};
+  path: "/government-contracting",
+});
 
 const competencies = [
   "IT infrastructure and cloud enablement",
@@ -84,12 +83,15 @@ export default function GovernmentContractingPage() {
             <div>
               <p className="section-kicker text-left text-gold-300">Relevant NAICS alignment</p>
               <h2 className="font-display text-4xl font-semibold leading-tight sm:text-5xl">Confirmed NAICS information.</h2>
-              <p className="mt-6 leading-7 text-slate-300">NAICS 541512 appears in the official SBA public profile. Additional company-supplied NAICS fragments remain unpublished pending verification of complete six-digit codes.</p>
+              <p className="mt-6 leading-7 text-slate-300">The official SBA public profile identifies 541511 as the primary NAICS code and lists the additional codes shown here. SAM.gov registration status remains qualified pending direct verification.</p>
             </div>
             <div className="grid gap-px overflow-hidden border border-white/10 bg-white/10">
-              {verifiedNaicsCodes.map(({ code, label }) => (
+              {verifiedNaicsCodes.map(({ code, label, primary }) => (
                 <article key={code} className="bg-navy-950 p-7">
-                  <p className="font-display text-3xl text-gold-300">{code}</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="font-display text-3xl text-gold-300">{code}</p>
+                    {primary && <span className="border border-gold-300/50 px-2 py-1 text-[.6rem] font-bold uppercase tracking-[.16em] text-gold-200">Primary</span>}
+                  </div>
                   <p className="mt-3 text-sm leading-6 text-slate-300">{label}</p>
                   <p className="mt-4 text-[.65rem] font-bold uppercase tracking-[.16em] text-emerald-300">Matched in official SBA record</p>
                 </article>
@@ -124,7 +126,7 @@ export default function GovernmentContractingPage() {
           <div>
             <p className="text-xs font-bold uppercase tracking-[.22em] text-gold-600">Capability statement</p>
             <h2 className="mt-4 font-display text-4xl font-semibold">Download the current draft profile.</h2>
-            <p className="mt-4 max-w-3xl leading-7 text-slate-600">This draft includes the confirmed SBA certifications, approval date, UEI, CAGE, NAICS 541512, phone, and email. SAM.gov status, additional NAICS information, and any past-performance content remain unpublished pending verification.</p>
+            <p className="mt-4 max-w-3xl leading-7 text-slate-600">This company-review draft includes the confirmed SBA certifications, approval date, UEI, CAGE, current SBA-listed NAICS codes, phone, and email. SAM.gov status and any past-performance content remain qualified or unpublished pending direct verification and approval.</p>
           </div>
           <a className="button-gold px-7 py-4" href={siteConfig.capabilityStatement} download>
             Download Draft Capability Statement <ArrowIcon className="h-4 w-4" />

@@ -1,26 +1,37 @@
 # Production Dependency Advisory Assessment
 
-Assessment date: 2026-11-12
+Assessment date: 2026-11-19
 
-Scope: production dependencies reported by `npm audit --omit=dev` after pinning Next.js and `eslint-config-next` to 15.5.29.
+Scope: committed dependency tree installed from `package-lock.json`, evaluated with `npm audit --omit=dev`, full `npm audit`, and `npm ls`.
 
-## Result
+## Current result
 
-The initial production audit reported three affected packages: two high severity and one moderate severity. The review replaced the vulnerable optional `sharp` installation with the Next-supported 0.35.5 release, leaving one high severity and one moderate severity production finding. There are no critical production findings.
+- Production audit: one high-severity package finding and one moderate-severity package finding; no critical findings.
+- Full audit including development tooling: one high and seven moderate package findings; no critical findings.
+- `sharp@0.35.5` remains on the patched release and is not reported by the current audit.
 
-| Package | Installed through | Audit severity | Applicability to this website | Disposition |
+| Package | Installed through | Severity | Current applicability | Disposition |
 | --- | --- | --- | --- | --- |
-| `postcss@8.4.31` | Next.js 15.5.29 private dependency | High | The advisories require attacker-controlled CSS, CSS stringification input, or `sourceMappingURL` comments. This deployment compiles CSS from the controlled repository during the Amplify build and does not accept or process user-supplied CSS at request time. Practical exposure is low, but the vulnerable package remains present in the build/runtime artifact. | Track the Next.js fix. The audit-proposed resolution is Next.js 16.4.6, a major framework change that requires separate Amplify and application compatibility testing. Do not force-upgrade during this correction release. |
-| `sharp@0.34.5` | Next.js optional image-processing dependency | High in the initial audit; resolved locally | The site has no `next/image` imports, raster assets, image uploads, or user-controlled image-processing workflow. Public assets are a static SVG favicon and a PDF. The package is nevertheless pinned to a patched version so clean installs remain reproducible. | Updated to `sharp@0.35.5`, which is explicitly accepted by Next.js 15.5.29. The final production audit no longer reports `sharp`. |
-| `next@15.5.29` | Direct production dependency | Moderate | This is the audit's aggregate effect from the bundled vulnerable PostCSS version, not a separate demonstrated request-time path in this website. | Retain the security-patched 15.5.29 release for this deployment and schedule a controlled major-version evaluation. |
+| `postcss@8.4.31` | Private dependency bundled with `next@15.5.29` | High | The current advisories involve CSS stringification or attacker-controlled `sourceMappingURL` values. This website compiles repository-controlled CSS during the Amplify build and has no upload, CSS-processing, theme-editor, or user-controlled stylesheet path at request time. No remotely reachable exploit path was identified through intended website functionality. | Unresolved scanner finding. Requires a documented temporary risk acceptance or a separately tested framework upgrade before official launch approval. |
+| `next@15.5.29` | Direct production dependency | Moderate | npm reports Next.js because it contains the affected PostCSS version. The audit does not identify a separate request-time vulnerability in the application. | Keep pinned unless a controlled upgrade is approved. |
+| `minimatch@10.2.6` and affected `@typescript-eslint/*` packages | Development lint/parser toolchain | Moderate | Used during local and Amplify validation against repository-controlled paths. These packages are not part of the intended public website functionality. | Update through compatible ESLint/TypeScript-ESLint releases when available; not a demonstrated production request path. |
 
-## Compensating conditions
+## PostCSS advisories reported
 
-- The application does not accept file uploads, CSS, images, source maps, or executable content from users.
-- Contact submissions are limited to validated text fields and remain disabled by independent browser and server feature gates.
-- The production Content Security Policy restricts scripts, styles, images, connections, framing, and form actions to the application origin, with inline allowances required by the current Next.js rendering model.
-- Dependencies are installed from the committed lockfile with `npm ci` in Amplify.
+- `GHSA-qx2v-qp2m-jg93`: unescaped `</style>` in CSS stringify output.
+- `GHSA-6g55-p6wh-862q`: arbitrary file read through attacker-controlled CSS source-map comments.
+- `GHSA-fxqj-rqcc-2cmp`: incomplete source-map handling fix when `from` is unset.
+- `GHSA-r28c-9q8g-f849`: path traversal through previous source-map auto-loading.
+
+The additional source-map advisories increase the importance of tracking the dependency, but they do not change the application exposure model: APEX CSS LLC does not accept or process user-supplied CSS.
+
+## Remediation options
+
+1. **Controlled Next.js 16 evaluation.** The current npm recommendation is `next@16.4.6`, a semver-major change. Test it in an isolated branch against Node 22, React, middleware behavior, Amplify SSR, metadata, headers, and all browser tests before adoption.
+2. **Wait for a supported patched 15.x path.** Monitor Next.js and npm advisories for a compatible release that updates the private PostCSS dependency without a major framework migration.
+3. **Temporary formal risk acceptance.** If launch proceeds on Next.js 15.5.29, record the absence of user-controlled CSS, locked `npm ci` installs, disabled uploads, security headers, monitoring owner, review date, and upgrade trigger.
+4. **Do not force an unsupported nested override.** Overriding Next.js's private PostCSS version without upstream compatibility confirmation could create build or runtime failures and is not recommended as a launch shortcut.
 
 ## Launch decision
 
-The remaining PostCSS/Next.js findings should stay visible in release notes and dependency monitoring. Based on the website's current feature set, they do not present a demonstrated exploitable path through intended functionality, but they are unresolved scanner findings and require either a tested upstream upgrade or formal risk acceptance before a long-term production launch.
+No new critical advisory or demonstrated remote exploitation path was found. Organizations that prohibit unresolved high-severity scanner findings must treat the PostCSS result as a launch blocker. Otherwise, launch requires explicit technical or company risk acceptance plus a scheduled framework-remediation review; silence or the absence of a public form is not sufficient acceptance.

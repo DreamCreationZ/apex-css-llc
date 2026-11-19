@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { ArrowIcon, CleanIcon, CloudIcon, PeopleIcon, ShieldIcon, SupportIcon, WindowIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Services & Capabilities",
   description: "Explore APEX CSS LLC services across cloud infrastructure, cybersecurity, IT modernization, staffing, cleaning, and facility management.",
-  alternates: { canonical: "/services" },
-};
+  path: "/services",
+});
 
 const services = [
   {

@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import { CtaBand } from "@/components/CtaBand";
 import { CompassIcon, PeopleIcon, ShieldIcon, TargetIcon, VisionIcon } from "@/components/Icons";
 import { PageHero } from "@/components/PageHero";
+import { createPageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About Us",
   description: "Learn about APEX CSS LLC's veteran-led identity, mission, vision, values, and commitment to government missions.",
-  alternates: { canonical: "/about" },
-};
+  path: "/about",
+});
 
 const values = [
   { title: "Mission First", copy: "We begin with the operational outcome and align every recommendation to the customer’s mission.", Icon: TargetIcon },
