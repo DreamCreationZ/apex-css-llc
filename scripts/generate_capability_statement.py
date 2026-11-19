@@ -9,7 +9,7 @@ from reportlab.pdfgen import canvas
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output" / "pdf" / "APEX-CSS-LLC-Capability-Statement-Draft.pdf"
-PUBLIC_OUTPUT = ROOT / "public" / "downloads" / "APEX-CSS-LLC-Capability-Statement-Draft.pdf"
+RUNTIME_OUTPUT = ROOT / "assets" / "APEX-CSS-LLC-Capability-Statement-Draft.pdf"
 
 NAVY = HexColor("#061B3D")
 NAVY_2 = HexColor("#0A244A")
@@ -235,10 +235,10 @@ def build() -> None:
     c.setSubject("Pre-launch company-review draft with verified SBA profile details")
     c.showPage()
     c.save()
-    PUBLIC_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    copyfile(OUTPUT, PUBLIC_OUTPUT)
+    RUNTIME_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    copyfile(OUTPUT, RUNTIME_OUTPUT)
     print(OUTPUT)
-    print(PUBLIC_OUTPUT)
+    print(RUNTIME_OUTPUT)
 
 
 if __name__ == "__main__":

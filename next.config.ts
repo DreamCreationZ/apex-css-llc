@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: "standalone",
   outputFileTracingRoot: process.cwd(),
+  outputFileTracingIncludes: {
+    "/downloads/APEX-CSS-LLC-Capability-Statement-Draft.pdf": [
+      "./assets/APEX-CSS-LLC-Capability-Statement-Draft.pdf",
+    ],
+  },
   distDir: process.env.NEXT_DIST_DIR ?? ".next",
   async headers() {
     return [
